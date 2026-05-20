@@ -1,0 +1,16 @@
+# 敏感配置——绝对不推送
+.env
+.env.*
+
+# 含硬编码 API Key 的旧客户端文件
+octopus_client.py
+
+# Python 临时文件
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# 充电计划日志（个人数据）
+charging_plan_*.txt
+wash_dry_plan_*.md

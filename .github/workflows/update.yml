@@ -1,0 +1,44 @@
+name: Update Agile Price Page
+
+on:
+  schedule:
+    # 每 4 小时运行一次（Agile 明日费率约在 16:00 UTC 发布）
+    - cron: "0 */4 * * *"
+  # 允许手动在 GitHub 网页上点击 Run 触发
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests python-dotenv pytz
+
+      - name: Generate index.html
+        env:
+          OCTOPUS_API_KEY:      ${{ secrets.OCTOPUS_API_KEY }}
+          OCTOPUS_MPAN:         ${{ secrets.OCTOPUS_MPAN }}
+          OCTOPUS_PRODUCT_CODE: ${{ secrets.OCTOPUS_PRODUCT_CODE }}
+          OCTOPUS_TARIFF_CODE:  ${{ secrets.OCTOPUS_TARIFF_CODE }}
+        run: python generate.py
+
+      - name: Commit & push index.html
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          # 只有文件真正变化时才提交
+          git diff --cached --quiet || git commit -m "chore: update Agile price page $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
