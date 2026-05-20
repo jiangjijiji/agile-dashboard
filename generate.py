@@ -497,15 +497,19 @@ body {
 .wx-temp-big { font-size: 2.4em; font-weight: 600; line-height: 1; }
 .wx-time  { font-size: 0.72em; color: #333; margin-top: 2px; font-weight: 500; }
 
-/* 3-card row */
-.wx-cards { display: flex; gap: 10px; }
+/* 3-card row — float layout for max browser compatibility */
+.wx-cards { overflow: hidden; }
+.wx-cards::after { content: ""; display: table; clear: both; }
 .wx-card {
-    flex: 1;
+    float: left;
+    width: 32%;
+    box-sizing: border-box;
     border: 2px solid #888;
     border-radius: 10px;
     text-align: center;
     padding: 10px 4px 8px;
 }
+.wx-card:nth-child(2) { margin-left: 2%; margin-right: 2%; }
 .wx-card.now { border: 3px solid #000; background: #ececec; }
 .wc-time { font-size: 0.78em; color: #111; margin-bottom: 4px; font-weight: 700; }
 .wc-icon { display: flex; justify-content: center; margin-bottom: 4px; }
@@ -528,27 +532,23 @@ body {
     margin-bottom: 6px;
 }
 
-/* ── Appliance boxes (EV / Washer / Dryer) ──────────────── */
-.appliance-boxes {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 14px;
-}
+/* ── Appliance boxes — float layout ─────────────────────── */
+.appliance-boxes { overflow: hidden; margin-bottom: 14px; }
+.appliance-boxes::after { content: ""; display: table; clear: both; }
 .ap-box {
-    flex: 1;
+    float: left;
+    width: 32%;
+    box-sizing: border-box;
     border: 2.5px solid #000;
     border-radius: 10px;
-    padding: 14px 8px 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 14px 6px 12px;
     text-align: center;
-    gap: 6px;
 }
+.ap-box:nth-child(2) { margin-left: 2%; margin-right: 2%; }
 .ap-box.alt { background: #f0f0f0; }
-.ap-icon  { display: flex; justify-content: center; }
-.ap-title { font-weight: 700; font-size: 0.9em; }
-.ap-detail { font-size: 0.86em; font-weight: 600; line-height: 1.55; color: #000; }
+.ap-icon  { margin-bottom: 4px; }
+.ap-title { font-weight: 700; font-size: 0.9em; margin-bottom: 4px; }
+.ap-detail { font-size: 0.86em; font-weight: 600; line-height: 1.55; color: #000; word-break: break-word; }
 
 /* ── Rate table ──────────────────────────────────────────── */
 .rates-wrap { margin-top: 12px; }
