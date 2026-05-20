@@ -37,7 +37,7 @@ DRY_SLOTS  = 7   # 3.5 小时
 #  SVG 图标 (纯线条, 墨水屏友好)
 # ════════════════════════════════════════════════════════════════════════════
 
-def _svg(content, size=40, stroke=2.0, viewbox="0 0 24 24"):
+def _svg(content, size=40, stroke=3.0, viewbox="0 0 24 24"):
     return (f'<svg width="{size}" height="{size}" viewBox="{viewbox}" '
             f'fill="none" stroke="black" stroke-width="{stroke}" '
             f'stroke-linecap="round" stroke-linejoin="round">{content}</svg>')
@@ -151,14 +151,14 @@ def svg_car(size=36):
 # Location pin
 def svg_pin_sm(size=20):
     return (f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" '
-            f'stroke="black" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" '
+            f'stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
             f'style="vertical-align:middle;margin-right:4px">'
             f'<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>'
             f'<circle cx="12" cy="10" r="3"/>'
             f'</svg>')
 
 # Small inline icons (for weather cards & header)
-def _svg_sm(content, size=20, stroke=1.6):
+def _svg_sm(content, size=20, stroke=2.4):
     return (f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" '
             f'stroke="black" stroke-width="{stroke}" stroke-linecap="round" stroke-linejoin="round" '
             f'style="vertical-align:middle;margin-right:2px">{content}</svg>')
@@ -194,7 +194,7 @@ def svg_wind_arrow(degrees, size=22):
         f'<line x1="{a2x:.1f}" y1="{a2y:.1f}" x2="{tx:.1f}" y2="{ty:.1f}"/>'
     )
     return (f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" '
-            f'stroke="black" stroke-width="2" stroke-linecap="round" '
+            f'stroke="black" stroke-width="2.8" stroke-linecap="round" '
             f'style="vertical-align:middle;margin-right:2px">{content}</svg>')
 
 # WMO 代码 → SVG
@@ -339,18 +339,21 @@ def build_rate_svg(slots, now_utc, width=1160, height=130):
     bst_now   = now_utc + timedelta(hours=1)
     show_next = bst_now.hour >= 17
 
-    # 决定显示哪些时段
+    # 决定显示哪些时段 — 始终从当前时间前 2 小时开始
+    start_cutoff = now_utc - timedelta(hours=2)
     if show_next:
-        # 当日剩余 + 明日全天
+        # 当日剩余 + 明日: 从 now-2h 起, 最多 60 槽 (30 小时)
         disp = [s for s in slots
-                if datetime.fromisoformat(s["valid_from"].replace("Z","+00:00")) >= now_utc]
+                if datetime.fromisoformat(s["valid_from"].replace("Z","+00:00")) >= start_cutoff]
+        disp = disp[:60]
     else:
-        # 当日 00:00-23:59 BST
+        # 当日 now-2h 到 23:59 BST
         day_start = bst_now.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
         day_end   = day_start + timedelta(days=1)
         disp = [s for s in slots
-                if day_start <= (datetime.fromisoformat(s["valid_from"].replace("Z","+00:00"))
-                                 + timedelta(hours=1)).replace(tzinfo=None) < day_end]
+                if (datetime.fromisoformat(s["valid_from"].replace("Z","+00:00")) >= start_cutoff
+                    and (datetime.fromisoformat(s["valid_from"].replace("Z","+00:00"))
+                         + timedelta(hours=1)).replace(tzinfo=None) < day_end)]
 
     if len(disp) < 2: return ""
 
@@ -394,10 +397,10 @@ def build_rate_svg(slots, now_utc, width=1160, height=130):
         if bst_t.minute == 0 and bst_t.hour % 3 == 0:
             time_labels.append((px(i), bst_t.strftime("%H")))
 
-    # Y-axis labels (every 5p)
+    # Y-axis labels (every 10p)
     y_labels = []
     for p in range(int(lo), int(hi)+1):
-        if p % 5 == 0:
+        if p % 10 == 0:
             yp = py(p)
             if pad_t <= yp <= pad_t + ch:
                 y_labels.append((yp, f"{p}"))
@@ -413,23 +416,23 @@ def build_rate_svg(slots, now_utc, width=1160, height=130):
         svg.append(f'<line x1="{pad_l}" y1="{gy:.1f}" x2="{pad_l+cw}" y2="{gy:.1f}" '
                    f'stroke="#555" stroke-width="0.8" stroke-dasharray="4 3"/>')
         svg.append(f'<text x="{pad_l-3}" y="{gy+4:.1f}" text-anchor="end" '
-                   f'font-size="12" fill="#555">{RATE_GREEN:.0f}</text>')
+                   f'font-size="20" fill="#222">{RATE_GREEN:.0f}</text>')
     if yy_ok:
         svg.append(f'<line x1="{pad_l}" y1="{yy:.1f}" x2="{pad_l+cw}" y2="{yy:.1f}" '
                    f'stroke="#888" stroke-width="0.8" stroke-dasharray="2 3"/>')
 
     # Main polyline
-    svg.append(f'<polyline points="{polyline}" fill="none" stroke="black" stroke-width="1.8"/>')
+    svg.append(f'<polyline points="{polyline}" fill="none" stroke="black" stroke-width="2.5"/>')
 
     # Y-axis labels
     for yp, label in y_labels:
         svg.append(f'<text x="{pad_l-4}" y="{yp+4:.1f}" text-anchor="end" '
-                   f'font-size="11" fill="#777">{label}p</text>')
+                   f'font-size="20" fill="#333">{label}p</text>')
 
     # X-axis time labels
     for xp, label in time_labels:
         svg.append(f'<text x="{xp:.1f}" y="{pad_t+ch+20:.1f}" text-anchor="middle" '
-                   f'font-size="13" fill="#555">{label}:00</text>')
+                   f'font-size="22" fill="#222">{label}:00</text>')
 
     # Axes
     svg.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{pad_t+ch}" '
@@ -440,11 +443,11 @@ def build_rate_svg(slots, now_utc, width=1160, height=130):
     # Current marker
     if cur_x is not None:
         svg.append(f'<line x1="{cur_x:.1f}" y1="{pad_t}" x2="{cur_x:.1f}" y2="{pad_t+ch}" '
-                   f'stroke="black" stroke-width="1.2" stroke-dasharray="3 2"/>')
-        svg.append(f'<circle cx="{cur_x:.1f}" cy="{cur_y:.1f}" r="4" fill="black"/>')
+                   f'stroke="black" stroke-width="2.0" stroke-dasharray="5 3"/>')
+        svg.append(f'<circle cx="{cur_x:.1f}" cy="{cur_y:.1f}" r="7" fill="black"/>')
         # Rate label near dot
-        lx = min(cur_x + 7, pad_l + cw - 40)
-        svg.append(f'<text x="{lx:.1f}" y="{cur_y-6:.1f}" font-size="16" '
+        lx = min(cur_x + 10, pad_l + cw - 60)
+        svg.append(f'<text x="{lx:.1f}" y="{cur_y-10:.1f}" font-size="26" '
                    f'font-weight="bold" fill="black">{cur_rate:.1f}p</text>')
 
     svg.append('</svg>')
@@ -459,71 +462,77 @@ CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 22px;
+    font-size: 32px;
+    font-weight: 500;
     line-height: 1.35;
     background: #fff;
     color: #000;
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 10px 16px 20px;
 }
 
-/* ── 天气区块 ─────────────────────────────────────────────────── */
+/* ── 天气区块 (屏幕上 1/3) ────────────────────────────────────── */
 .wx-wrap {
-    border: 2px solid #000;
+    border: 2.5px solid #000;
     border-radius: 12px;
-    padding: 14px 18px 12px;
-    margin-bottom: 12px;
+    padding: 16px 18px 14px;
+    margin-bottom: 14px;
+    min-height: 18vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .wx-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding-bottom: 10px;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 2px solid #888;
     margin-bottom: 10px;
 }
 .wx-left  { display: flex; flex-direction: column; gap: 4px; }
-.wx-city  { font-size: 1.1em; font-weight: 700; letter-spacing: 0.02em; }
-.wx-meta  { font-size: 0.82em; color: #444; }
+.wx-city  { font-size: 1.05em; font-weight: 700; letter-spacing: 0.02em; }
+.wx-meta  { font-size: 0.82em; color: #111; font-weight: 500; }
 .wx-right { text-align: right; }
-.wx-temp-big { font-size: 2.6em; font-weight: 300; line-height: 1; }
-.wx-time  { font-size: 0.75em; color: #666; margin-top: 2px; }
+.wx-temp-big { font-size: 2.4em; font-weight: 600; line-height: 1; }
+.wx-time  { font-size: 0.72em; color: #333; margin-top: 2px; font-weight: 500; }
 
-/* 5小时卡片行 */
+/* 4小时卡片行 */
 .wx-cards {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 .wx-card {
     flex: 1;
-    border: 1px solid #aaa;
+    border: 2px solid #888;
     border-radius: 10px;
     text-align: center;
-    padding: 8px 4px;
+    padding: 14px 4px 12px;
 }
 .wx-card.now {
-    border: 2.5px solid #000;
-    background: #f0f0f0;
+    border: 3px solid #000;
+    background: #ececec;
 }
-.wc-time { font-size: 0.72em; color: #555; margin-bottom: 4px; font-weight: 600; }
-.wc-icon { display: flex; justify-content: center; margin-bottom: 4px; }
-.wc-temp { font-size: 1.15em; font-weight: 700; margin-bottom: 5px; }
-.wc-hum  { font-size: 0.7em;  color: #444; margin-bottom: 2px; }
-.wc-rain { font-size: 0.7em;  color: #333; margin-bottom: 2px; font-weight: 600; }
-.wc-wind { font-size: 0.7em;  color: #444; line-height: 1.4; }
+.wc-time { font-size: 0.78em; color: #111; margin-bottom: 5px; font-weight: 700; }
+.wc-icon { display: flex; justify-content: center; margin-bottom: 5px; }
+.wc-temp { font-size: 1.2em; font-weight: 700; margin-bottom: 6px; }
+.wc-hum  { font-size: 0.76em; color: #111; margin-bottom: 3px; font-weight: 500; }
+.wc-rain { font-size: 0.76em; color: #000; margin-bottom: 3px; font-weight: 600; }
+.wc-wind { font-size: 0.76em; color: #111; line-height: 1.5; font-weight: 500; }
 
 /* ── 费率曲线区块 ─────────────────────────────────────────────── */
 .rate-curve-wrap {
-    border: 1.5px solid #bbb;
+    border: 2px solid #888;
     border-radius: 10px;
-    padding: 10px 14px 6px;
-    margin-bottom: 10px;
+    padding: 12px 16px 8px;
+    margin-bottom: 12px;
 }
 .rate-curve-title {
-    font-size: 0.75em;
-    color: #666;
-    margin-bottom: 4px;
+    font-size: 0.72em;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 6px;
 }
 
 /* ── 当前费率横条 ─────────────────────────────────────────────── */
@@ -531,17 +540,17 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 8px 14px;
+    padding: 10px 16px;
     border-radius: 10px;
-    border: 2.5px solid #000;
-    margin-bottom: 10px;
+    border: 3px solid #000;
+    margin-bottom: 12px;
 }
-.cur-bar.green  { border-color: #333; }
-.cur-bar.yellow { border-color: #555; background: #f8f8f8; }
-.cur-bar.red    { border-color: #111; background: #f0f0f0; }
+.cur-bar.green  { border-color: #000; }
+.cur-bar.yellow { border-color: #000; background: #f0f0f0; }
+.cur-bar.red    { border-color: #000; background: #e0e0e0; }
 .cb-icon { flex-shrink: 0; }
-.cb-rate { font-size: 2em; font-weight: 700; min-width: 3em; }
-.cb-slot { font-size: 0.8em; color: #555; flex: 1; line-height: 1.5; }
+.cb-rate { font-size: 2.1em; font-weight: 700; min-width: 3em; }
+.cb-slot { font-size: 0.8em; color: #222; flex: 1; line-height: 1.5; font-weight: 500; }
 .cb-label { font-size: 0.85em; font-weight: 700; text-align: right; }
 
 /* ── 信息行 (充电/洗衣/烘干) ─────────────────────────────────── */
@@ -549,46 +558,43 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 14px;
+    padding: 10px 16px;
     border-radius: 9px;
-    border: 1.5px solid #bbb;
-    margin-bottom: 8px;
+    border: 2px solid #888;
+    margin-bottom: 10px;
     font-size: 0.88em;
 }
-.info-row.ev   { background: #f8f8f8; }
-.info-row.wash { border-style: dashed; border-color: #777; }
-.info-row.dry  { border-style: dashed; border-color: #777; background: #f8f8f8; }
+.info-row.ev   { background: #f4f4f4; }
+.info-row.wash { border-style: dashed; border-color: #444; }
+.info-row.dry  { border-style: dashed; border-color: #444; background: #f4f4f4; }
 .ir-icon { flex-shrink: 0; }
 .ir-head { font-weight: 700; min-width: 4.5em; flex-shrink: 0; font-size: 1em; }
-.ir-body { flex: 1; color: #222; line-height: 1.45; }
-.badge   { font-size: 0.75em; color: #555; background: #e0e0e0;
-           border-radius: 4px; padding: 1px 5px; margin-left: 6px; }
+.ir-body { flex: 1; color: #000; line-height: 1.5; font-weight: 500; }
+.badge   { font-size: 0.75em; color: #000; background: #d8d8d8;
+           border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 600; }
 
 /* ── 费率详情表 ──────────────────────────────────────────────── */
-.rates-wrap { margin-top: 10px; }
+.rates-wrap { margin-top: 12px; }
 .rates-title {
-    font-size: 0.72em; color: #666;
-    border-bottom: 1px solid #bbb;
-    padding-bottom: 4px; margin-bottom: 4px;
+    font-size: 0.72em; color: #333; font-weight: 600;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px; margin-bottom: 4px;
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px;
 }
-.legend span { margin-right: 10px; }
+.legend span { margin-right: 12px; }
 table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
-th { padding: 4px 8px; border-bottom: 2px solid #000; text-align: left; }
-td { padding: 3px 8px; border-bottom: 1px solid #e8e8e8; }
-tr.cur td { font-weight: 700; background: #e0e0e0 !important; border-left: 4px solid #000; }
-tr.green  td:first-child::before { content: "✓ "; }
-tr.yellow td:first-child::before { content: "~ "; }
-tr.red    td:first-child::before { content: "✗ "; }
+th { padding: 5px 10px; border-bottom: 2.5px solid #000; text-align: left; font-weight: 700; }
+td { padding: 4px 10px; border-bottom: 1.5px solid #ccc; }
+tr.cur td { font-weight: 700; background: #d8d8d8 !important; border-left: 5px solid #000; }
 tr.green  { background: #fff; }
-tr.yellow { background: #f5f5f5; }
-tr.red    { background: #eaeaea; color: #666; }
-td .tag   { font-size: 0.8em; margin-left: 3px; }
+tr.yellow { background: #f0f0f0; }
+tr.red    { background: #e4e4e4; color: #222; font-weight: 600; }
+td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
 
 /* ── 页脚 ────────────────────────────────────────────────────── */
 .footer {
-    font-size: 0.65em; color: #999; text-align: center;
-    margin-top: 10px; padding-top: 6px; border-top: 1px solid #e8e8e8;
+    font-size: 0.65em; color: #555; font-weight: 500; text-align: center;
+    margin-top: 12px; padding-top: 6px; border-top: 1.5px solid #ccc;
 }
 """
 
@@ -610,22 +616,22 @@ def build_html(slots, weather_data, generated_at):
     cur_wdir = cw.get("wind_direction_10m", 0)
     cur_icon_svg = weather_svg(cw.get("weathercode", 0), cw.get("is_day", 1), size=44)
 
-    hours = get_next_hours(weather_data, 5)
+    hours = get_next_hours(weather_data, 2)
     cards_html = ""
     for idx, h in enumerate(hours):
         cls  = "wx-card now" if idx == 0 else "wx-card"
         lbl  = "Now" if idx == 0 else h["time"]
-        icon = weather_svg(h["code"], h["is_day"], size=42)
-        rain = (f'<div class="wc-rain">{svg_rain_sm(19)} {h["precip"]}%</div>'
+        icon = weather_svg(h["code"], h["is_day"], size=54)
+        rain = (f'<div class="wc-rain">{svg_rain_sm(26)} {h["precip"]}%</div>'
                 if h["precip"] >= 10 else "")
         cards_html += f"""
     <div class="{cls}">
       <div class="wc-time">{lbl}</div>
       <div class="wc-icon">{icon}</div>
       <div class="wc-temp">{h['temp']:.0f}°C</div>
-      <div class="wc-hum">{svg_drop_sm(19)} {h['hum']:.0f}%</div>
+      <div class="wc-hum">{svg_drop_sm(26)} {h['hum']:.0f}%</div>
       {rain}
-      <div class="wc-wind">{svg_wind_arrow(h['wdir'], 22)} {wind_label(h['wdir'])} {h['wind']:.0f}mph</div>
+      <div class="wc-wind">{svg_wind_arrow(h['wdir'], 28)} {wind_label(h['wdir'])} {h['wind']:.0f}mph</div>
     </div>"""
 
     # ── 当前电价 ───────────────────────────────────────────────────────────
@@ -677,13 +683,12 @@ def build_html(slots, weather_data, generated_at):
     plan = find_appliance_plan(slots)
     appliance_html = ""
     if plan:
-        mode_badge = '<span class="badge">Sequential</span>' if plan["mode"] == "combined" else '<span class="badge">Separate</span>'
         appliance_html = f"""
 <div class="info-row wash">
   <span class="ir-icon">{svg_washer(36)}</span>
   <span class="ir-head">Washer</span>
   <span class="ir-body">{fmt_bst(plan['wash_start'])} → {fmt_bst(plan['wash_end'])} BST
-    &nbsp;·&nbsp; avg {plan['wash_avg']:.1f}p &nbsp;·&nbsp; {fmt_dur(WASH_SLOTS)}{mode_badge}</span>
+    &nbsp;·&nbsp; avg {plan['wash_avg']:.1f}p &nbsp;·&nbsp; {fmt_dur(WASH_SLOTS)}</span>
 </div>
 <div class="info-row dry">
   <span class="ir-icon">{svg_dryer(36)}</span>
@@ -711,8 +716,8 @@ def build_html(slots, weather_data, generated_at):
             if plan["dry_start"]  <= s["valid_from"] < plan["dry_end"]:
                 tags += '<span class="tag">D</span>'
         row_cls = ("cur " if is_cur else "") + rc
-        rows += (f'<tr class="{row_cls}"><td>{fmt_bst(s["valid_from"])}–'
-                 f'{fmt_bst(s["valid_to"])}</td><td>{p:.2f}p {tags}</td></tr>\n')
+        rows += (f'<tr class="{row_cls}"><td>{tags}{fmt_bst(s["valid_from"])}–'
+                 f'{fmt_bst(s["valid_to"])}</td><td>{p:.2f}p</td></tr>\n')
 
     gen_time = generated_at.strftime("%Y-%m-%d %H:%M UTC")
 
@@ -730,8 +735,8 @@ def build_html(slots, weather_data, generated_at):
 <div class="wx-wrap">
   <div class="wx-top">
     <div class="wx-left">
-      <span class="wx-city">{svg_pin_sm(22)} {WEATHER_CITY}</span>
-      <span class="wx-meta">{svg_drop_sm(20)} {cur_hum:.0f}% &nbsp;&nbsp; {svg_wind_arrow(cur_wdir, 22)} {wind_label(cur_wdir)} {cur_wind:.0f} mph</span>
+      <span class="wx-city">{svg_pin_sm(28)} {WEATHER_CITY}</span>
+      <span class="wx-meta">{svg_drop_sm(26)} {cur_hum:.0f}% &nbsp;&nbsp; {svg_wind_arrow(cur_wdir, 28)} {wind_label(cur_wdir)} {cur_wind:.0f} mph</span>
     </div>
     <div class="wx-right">
       <div class="wx-temp-big">{cur_temp:.0f}° {cur_icon_svg}</div>
