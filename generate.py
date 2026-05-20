@@ -213,10 +213,9 @@ def weather_svg(code: int, is_day: int = 1, size: int = 44) -> str:
     else:                          return svg_cloud(size)
 
 def wind_label(deg: float) -> str:
-    dirs   = ["N","NE","E","SE","S","SW","W","NW"]
-    arrows = ["↓","↙","←","↖","↑","↗","→","↘"]
-    idx = round(deg / 45) % 8
-    return f"{dirs[idx]}{arrows[idx]}"
+    dirs = ["N","NE","E","SE","S","SW","W","NW"]
+    idx  = round(deg / 45) % 8
+    return dirs[idx]
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -460,6 +459,7 @@ def build_rate_svg(slots, now_utc, width=1160, height=130):
 
 CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { width: 100%; }
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 32px;
@@ -467,9 +467,11 @@ body {
     line-height: 1.35;
     background: #fff;
     color: #000;
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 10px 16px 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 10px 14px 20px;
+    box-sizing: border-box;
 }
 
 /* ── Weather section ────────────────────────────────────── */
@@ -492,7 +494,7 @@ body {
 }
 .wx-left  { display: flex; flex-direction: column; gap: 4px; }
 .wx-city  { font-size: 1.05em; font-weight: 700; letter-spacing: 0.02em; }
-.wx-meta  { font-size: 0.82em; color: #111; font-weight: 500; }
+.wx-meta  { font-size: 0.82em; color: #111; font-weight: 500; white-space: nowrap; }
 .wx-right { text-align: right; }
 .wx-temp-big { font-size: 2.4em; font-weight: 600; line-height: 1; }
 .wx-time  { font-size: 0.72em; color: #333; margin-top: 2px; font-weight: 500; }

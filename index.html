@@ -6,6 +6,7 @@
 <title>Agile + Weather</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { width: 100%; }
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     font-size: 32px;
@@ -13,9 +14,11 @@ body {
     line-height: 1.35;
     background: #fff;
     color: #000;
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 10px 16px 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 10px 14px 20px;
+    box-sizing: border-box;
 }
 
 /* ── Weather section ────────────────────────────────────── */
@@ -38,7 +41,7 @@ body {
 }
 .wx-left  { display: flex; flex-direction: column; gap: 4px; }
 .wx-city  { font-size: 1.05em; font-weight: 700; letter-spacing: 0.02em; }
-.wx-meta  { font-size: 0.82em; color: #111; font-weight: 500; }
+.wx-meta  { font-size: 0.82em; color: #111; font-weight: 500; white-space: nowrap; }
 .wx-right { text-align: right; }
 .wx-temp-big { font-size: 2.4em; font-weight: 600; line-height: 1; }
 .wx-time  { font-size: 0.72em; color: #333; margin-top: 2px; font-weight: 500; }
@@ -128,61 +131,67 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
   <div class="wx-top">
     <div class="wx-left">
       <span class="wx-city"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Kingston upon Thames</span>
-      <span class="wx-meta"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 69% &nbsp;&nbsp; <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="6.8" y1="13.8" x2="18.1" y2="9.9"/><line x1="15.6" y1="13.2" x2="18.1" y2="9.9"/><line x1="14.1" y1="8.8" x2="18.1" y2="9.9"/></svg> W→ 12 mph</span>
+      <span class="wx-meta"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 83% &nbsp;&nbsp; <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="8.4" y1="16.2" x2="16.3" y2="7.1"/><line x1="15.7" y1="11.2" x2="16.3" y2="7.1"/><line x1="12.2" y1="8.2" x2="16.3" y2="7.1"/></svg> SW 7 mph</span>
     </div>
     <div class="wx-right">
-      <div class="wx-temp-big">18° <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 21H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M20 16H6" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
-      <div class="wx-time">15:31 BST  ·  Wed 20 May 2026</div>
+      <div class="wx-temp-big">14° <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/><circle cx="12" cy="10" r="3"/><path d="M15 17H7.5a3.5 3.5 0 0 1 0-7h.14A3.5 3.5 0 0 1 15 13"/><path d="M15 13h1.5a3 3 0 0 1 0 6H15"/></svg></div>
+      <div class="wx-time">22:45 BST  ·  Wed 20 May 2026</div>
     </div>
   </div>
   <div class="wx-cards">
     <div class="wx-card now">
       <div class="wc-time">Now</div>
-      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 21H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M20 16H6" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
-      <div class="wc-temp">18°C</div>
-      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 64%</div>
-      <div class="wc-rain"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M17 12H9a5 5 0 0 1 8-4A4 4 0 1 1 17 12z"/><line x1="8" y1="15" x2="7" y2="19"/><line x1="12" y1="15" x2="11" y2="19"/><line x1="16" y1="15" x2="15" y2="19"/></svg> 15%</div>
-      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="6.8" y1="13.7" x2="18.2" y2="10.0"/><line x1="15.6" y1="13.3" x2="18.2" y2="10.0"/><line x1="14.1" y1="8.9" x2="18.2" y2="10.0"/></svg> W→ 14mph</div>
-    </div>
-    <div class="wx-card">
-      <div class="wc-time">16:00</div>
-      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 21H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M20 16H6" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
-      <div class="wc-temp">17°C</div>
-      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 72%</div>
-      <div class="wc-rain"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M17 12H9a5 5 0 0 1 8-4A4 4 0 1 1 17 12z"/><line x1="8" y1="15" x2="7" y2="19"/><line x1="12" y1="15" x2="11" y2="19"/><line x1="16" y1="15" x2="15" y2="19"/></svg> 10%</div>
-      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="6.8" y1="13.9" x2="18.1" y2="9.8"/><line x1="15.6" y1="13.1" x2="18.1" y2="9.8"/><line x1="14.0" y1="8.8" x2="18.1" y2="9.8"/></svg> W→ 12mph</div>
-    </div>
-    <div class="wx-card">
-      <div class="wc-time">17:00</div>
-      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 21H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M20 16H6" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
-      <div class="wc-temp">18°C</div>
-      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 69%</div>
+      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+      <div class="wc-temp">15°C</div>
+      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 83%</div>
       
-      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="7.1" y1="14.4" x2="17.8" y2="9.2"/><line x1="15.7" y1="12.8" x2="17.8" y2="9.2"/><line x1="13.7" y1="8.6" x2="17.8" y2="9.2"/></svg> SW↗ 12mph</div>
+      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="7.2" y1="14.8" x2="17.6" y2="8.8"/><line x1="15.7" y1="12.5" x2="17.6" y2="8.8"/><line x1="13.4" y1="8.5" x2="17.6" y2="8.8"/></svg> SW 5mph</div>
+    </div>
+    <div class="wx-card">
+      <div class="wc-time">23:00</div>
+      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/><circle cx="12" cy="10" r="3"/><path d="M15 17H7.5a3.5 3.5 0 0 1 0-7h.14A3.5 3.5 0 0 1 15 13"/><path d="M15 13h1.5a3 3 0 0 1 0 6H15"/></svg></div>
+      <div class="wc-temp">14°C</div>
+      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 83%</div>
+      
+      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="8.9" y1="16.6" x2="15.6" y2="6.6"/><line x1="15.6" y1="10.8" x2="15.6" y2="6.6"/><line x1="11.8" y1="8.2" x2="15.6" y2="6.6"/></svg> SW 7mph</div>
+    </div>
+    <div class="wx-card">
+      <div class="wc-time">00:00</div>
+      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
+      <div class="wc-temp">13°C</div>
+      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 87%</div>
+      
+      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="7.8" y1="15.5" x2="17.0" y2="7.8"/><line x1="15.8" y1="11.8" x2="17.0" y2="7.8"/><line x1="12.8" y1="8.3" x2="17.0" y2="7.8"/></svg> SW 6mph</div>
     </div></div>
 </div>
 
 <!-- Rate curve -->
 
 <div class="rate-curve-wrap">
-  <div class="rate-curve-title">Today's 24-hour rate curve</div>
+  <div class="rate-curve-title">Remaining today + tomorrow's rates</div>
   <svg width="1160" height="130" viewBox="0 0 1160 130" xmlns="http://www.w3.org/2000/svg" style="display:block">
-<path d="M44.0,102.0 L44.0,91.9 L109.1,93.4 L174.1,93.4 L239.2,89.4 L304.2,48.6 L369.3,35.8 L434.4,33.8 L499.4,31.4 L564.5,29.6 L629.5,23.4 L694.6,52.7 L759.6,49.9 L824.7,54.4 L889.8,51.5 L954.8,53.8 L1019.9,54.0 L1084.9,57.9 L1150.0,66.8 L1150.0,102.0 Z" fill="#e8e8e8" stroke="none"/>
-<line x1="44" y1="67.7" x2="1150" y2="67.7" stroke="#555" stroke-width="0.8" stroke-dasharray="4 3"/>
-<text x="41" y="71.7" text-anchor="end" font-size="20" fill="#222">20</text>
-<line x1="44" y1="53.5" x2="1150" y2="53.5" stroke="#888" stroke-width="0.8" stroke-dasharray="2 3"/>
-<polyline points="44.0,91.9 109.1,93.4 174.1,93.4 239.2,89.4 304.2,48.6 369.3,35.8 434.4,33.8 499.4,31.4 564.5,29.6 629.5,23.4 694.6,52.7 759.6,49.9 824.7,54.4 889.8,51.5 954.8,53.8 1019.9,54.0 1084.9,57.9 1150.0,66.8" fill="none" stroke="black" stroke-width="2.5"/>
-<text x="40" y="100.2" text-anchor="end" font-size="20" fill="#333">10p</text>
-<text x="40" y="71.7" text-anchor="end" font-size="20" fill="#333">20p</text>
-<text x="40" y="43.2" text-anchor="end" font-size="20" fill="#333">30p</text>
-<text x="174.1" y="122.0" text-anchor="middle" font-size="22" fill="#222">15:00</text>
-<text x="564.5" y="122.0" text-anchor="middle" font-size="22" fill="#222">18:00</text>
-<text x="954.8" y="122.0" text-anchor="middle" font-size="22" fill="#222">21:00</text>
+<path d="M44.0,102.0 L44.0,63.8 L65.7,64.1 L87.4,68.5 L109.1,78.5 L130.7,76.8 L152.4,77.7 L174.1,81.1 L195.8,83.1 L217.5,85.7 L239.2,85.2 L260.9,86.4 L282.5,86.9 L304.2,85.0 L325.9,86.1 L347.6,83.3 L369.3,84.7 L391.0,77.0 L412.7,80.2 L434.4,76.2 L456.0,71.0 L477.7,72.0 L499.4,70.3 L521.1,70.1 L542.8,69.3 L564.5,69.6 L586.2,74.1 L607.8,79.5 L629.5,80.0 L651.2,80.1 L672.9,80.9 L694.6,86.9 L716.3,88.1 L738.0,87.2 L759.6,91.6 L781.3,90.5 L803.0,90.2 L824.7,92.4 L846.4,88.3 L868.1,48.3 L889.8,40.8 L911.5,39.1 L933.1,40.5 L954.8,30.5 L976.5,24.8 L998.2,59.6 L1019.9,59.9 L1041.6,59.8 L1063.3,61.3 L1084.9,62.5 L1106.6,65.7 L1128.3,70.1 L1150.0,79.6 L1150.0,102.0 Z" fill="#e8e8e8" stroke="none"/>
+<line x1="44" y1="79.6" x2="1150" y2="79.6" stroke="#555" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="41" y="83.6" text-anchor="end" font-size="20" fill="#222">20</text>
+<line x1="44" y1="63.5" x2="1150" y2="63.5" stroke="#888" stroke-width="0.8" stroke-dasharray="2 3"/>
+<polyline points="44.0,63.8 65.7,64.1 87.4,68.5 109.1,78.5 130.7,76.8 152.4,77.7 174.1,81.1 195.8,83.1 217.5,85.7 239.2,85.2 260.9,86.4 282.5,86.9 304.2,85.0 325.9,86.1 347.6,83.3 369.3,84.7 391.0,77.0 412.7,80.2 434.4,76.2 456.0,71.0 477.7,72.0 499.4,70.3 521.1,70.1 542.8,69.3 564.5,69.6 586.2,74.1 607.8,79.5 629.5,80.0 651.2,80.1 672.9,80.9 694.6,86.9 716.3,88.1 738.0,87.2 759.6,91.6 781.3,90.5 803.0,90.2 824.7,92.4 846.4,88.3 868.1,48.3 889.8,40.8 911.5,39.1 933.1,40.5 954.8,30.5 976.5,24.8 998.2,59.6 1019.9,59.9 1041.6,59.8 1063.3,61.3 1084.9,62.5 1106.6,65.7 1128.3,70.1 1150.0,79.6" fill="none" stroke="black" stroke-width="2.5"/>
+<text x="40" y="83.6" text-anchor="end" font-size="20" fill="#333">20p</text>
+<text x="40" y="51.5" text-anchor="end" font-size="20" fill="#333">30p</text>
+<text x="40" y="19.4" text-anchor="end" font-size="20" fill="#333">40p</text>
+<text x="44.0" y="122.0" text-anchor="middle" font-size="22" fill="#222">21:00</text>
+<text x="174.1" y="122.0" text-anchor="middle" font-size="22" fill="#222">00:00</text>
+<text x="304.2" y="122.0" text-anchor="middle" font-size="22" fill="#222">03:00</text>
+<text x="434.4" y="122.0" text-anchor="middle" font-size="22" fill="#222">06:00</text>
+<text x="564.5" y="122.0" text-anchor="middle" font-size="22" fill="#222">09:00</text>
+<text x="694.6" y="122.0" text-anchor="middle" font-size="22" fill="#222">12:00</text>
+<text x="824.7" y="122.0" text-anchor="middle" font-size="22" fill="#222">15:00</text>
+<text x="954.8" y="122.0" text-anchor="middle" font-size="22" fill="#222">18:00</text>
+<text x="1084.9" y="122.0" text-anchor="middle" font-size="22" fill="#222">21:00</text>
 <line x1="44" y1="12" x2="44" y2="102" stroke="#aaa" stroke-width="1"/>
 <line x1="44" y1="102.0" x2="1150" y2="102.0" stroke="#aaa" stroke-width="1"/>
-<line x1="239.2" y1="12" x2="239.2" y2="102" stroke="black" stroke-width="2.0" stroke-dasharray="5 3"/>
-<circle cx="239.2" cy="89.4" r="7" fill="black"/>
-<text x="249.2" y="79.4" font-size="26" font-weight="bold" fill="black">12.4p</text>
+<line x1="109.1" y1="12" x2="109.1" y2="102" stroke="black" stroke-width="2.0" stroke-dasharray="5 3"/>
+<circle cx="109.1" cy="78.5" r="7" fill="black"/>
+<text x="119.1" y="68.5" font-size="26" font-weight="bold" fill="black">20.3p</text>
 </svg>
 </div>
 
@@ -219,21 +228,55 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
   <table>
     <thead><tr><th>Slot (BST)</th><th>Rate (inc. VAT)</th></tr></thead>
     <tbody>
-<tr class="cur green"><td><span class="tag">D</span>15:30–16:00</td><td>12.41p</td></tr>
-<tr class="red"><td>16:00–16:30</td><td>26.70p</td></tr>
-<tr class="red"><td>16:30–17:00</td><td>31.22p</td></tr>
-<tr class="red"><td>17:00–17:30</td><td>31.91p</td></tr>
-<tr class="red"><td>17:30–18:00</td><td>32.74p</td></tr>
-<tr class="red"><td>18:00–18:30</td><td>33.39p</td></tr>
-<tr class="red"><td>18:30–19:00</td><td>35.55p</td></tr>
-<tr class="red"><td>19:00–19:30</td><td>25.26p</td></tr>
-<tr class="red"><td>19:30–20:00</td><td>26.27p</td></tr>
-<tr class="yellow"><td>20:00–20:30</td><td>24.70p</td></tr>
+<tr class="cur yellow"><td>22:30–23:00</td><td>20.32p</td></tr>
+<tr class="yellow"><td>23:00–23:30</td><td>20.85p</td></tr>
+<tr class="yellow"><td>23:30–00:00</td><td>20.58p</td></tr>
+<tr class="green"><td>00:00–00:30</td><td>19.53p</td></tr>
+<tr class="green"><td>00:30–01:00</td><td>18.89p</td></tr>
+<tr class="green"><td>01:00–01:30</td><td>18.07p</td></tr>
+<tr class="green"><td>01:30–02:00</td><td>18.25p</td></tr>
+<tr class="green"><td>02:00–02:30</td><td>17.88p</td></tr>
+<tr class="green"><td>02:30–03:00</td><td>17.70p</td></tr>
+<tr class="green"><td>03:00–03:30</td><td>18.30p</td></tr>
+<tr class="green"><td>03:30–04:00</td><td>17.95p</td></tr>
+<tr class="green"><td>04:00–04:30</td><td>18.84p</td></tr>
+<tr class="green"><td>04:30–05:00</td><td>18.41p</td></tr>
+<tr class="yellow"><td>05:00–05:30</td><td>20.79p</td></tr>
+<tr class="green"><td>05:30–06:00</td><td>19.79p</td></tr>
+<tr class="yellow"><td>06:00–06:30</td><td>21.05p</td></tr>
+<tr class="yellow"><td>06:30–07:00</td><td>22.68p</td></tr>
+<tr class="yellow"><td>07:00–07:30</td><td>22.36p</td></tr>
+<tr class="yellow"><td>07:30–08:00</td><td>22.89p</td></tr>
+<tr class="yellow"><td>08:00–08:30</td><td>22.95p</td></tr>
+<tr class="yellow"><td>08:30–09:00</td><td>23.20p</td></tr>
+<tr class="yellow"><td>09:00–09:30</td><td>23.09p</td></tr>
+<tr class="yellow"><td>09:30–10:00</td><td>21.69p</td></tr>
+<tr class="yellow"><td>10:00–10:30</td><td>20.01p</td></tr>
+<tr class="green"><td>10:30–11:00</td><td>19.86p</td></tr>
+<tr class="green"><td>11:00–11:30</td><td>19.84p</td></tr>
+<tr class="green"><td>11:30–12:00</td><td>19.59p</td></tr>
+<tr class="green"><td>12:00–12:30</td><td>17.70p</td></tr>
+<tr class="green"><td>12:30–13:00</td><td>17.32p</td></tr>
+<tr class="green"><td>13:00–13:30</td><td>17.62p</td></tr>
+<tr class="green"><td>13:30–14:00</td><td>16.23p</td></tr>
+<tr class="green"><td>14:00–14:30</td><td>16.60p</td></tr>
+<tr class="green"><td>14:30–15:00</td><td>16.70p</td></tr>
+<tr class="green"><td>15:00–15:30</td><td>16.00p</td></tr>
+<tr class="green"><td>15:30–16:00</td><td>17.28p</td></tr>
+<tr class="red"><td>16:00–16:30</td><td>29.76p</td></tr>
+<tr class="red"><td>16:30–17:00</td><td>32.10p</td></tr>
+<tr class="red"><td>17:00–17:30</td><td>32.61p</td></tr>
+<tr class="red"><td>17:30–18:00</td><td>32.19p</td></tr>
+<tr class="red"><td>18:00–18:30</td><td>35.30p</td></tr>
+<tr class="red"><td>18:30–19:00</td><td>37.06p</td></tr>
+<tr class="red"><td>19:00–19:30</td><td>26.23p</td></tr>
+<tr class="red"><td>19:30–20:00</td><td>26.13p</td></tr>
+<tr class="red"><td>20:00–20:30</td><td>26.17p</td></tr>
 <tr class="red"><td>20:30–21:00</td><td>25.68p</td></tr>
-<tr class="yellow"><td>21:00–21:30</td><td>24.91p</td></tr>
-<tr class="yellow"><td>21:30–22:00</td><td>24.81p</td></tr>
-<tr class="yellow"><td>22:00–22:30</td><td>23.45p</td></tr>
-<tr class="yellow"><td>22:30–23:00</td><td>20.32p</td></tr>
+<tr class="red"><td>21:00–21:30</td><td>25.33p</td></tr>
+<tr class="yellow"><td>21:30–22:00</td><td>24.32p</td></tr>
+<tr class="yellow"><td>22:00–22:30</td><td>22.95p</td></tr>
+<tr class="green"><td>22:30–23:00</td><td>19.99p</td></tr>
 <tr class="green"><td>01:00–01:30</td><td>15.39p</td></tr>
 <tr class="green"><td>01:30–02:00</td><td>15.52p</td></tr>
 <tr class="green"><td>02:00–02:30</td><td>14.88p</td></tr>
@@ -263,11 +306,25 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
 <tr class="green"><td><span class="tag">D</span>14:00–14:30</td><td>11.53p</td></tr>
 <tr class="green"><td><span class="tag">D</span>14:30–15:00</td><td>10.98p</td></tr>
 <tr class="green"><td><span class="tag">D</span>15:00–15:30</td><td>10.98p</td></tr>
+<tr class="green"><td><span class="tag">D</span>15:30–16:00</td><td>12.41p</td></tr>
+<tr class="red"><td>16:00–16:30</td><td>26.70p</td></tr>
+<tr class="red"><td>16:30–17:00</td><td>31.22p</td></tr>
+<tr class="red"><td>17:00–17:30</td><td>31.91p</td></tr>
+<tr class="red"><td>17:30–18:00</td><td>32.74p</td></tr>
+<tr class="red"><td>18:00–18:30</td><td>33.39p</td></tr>
+<tr class="red"><td>18:30–19:00</td><td>35.55p</td></tr>
+<tr class="red"><td>19:00–19:30</td><td>25.26p</td></tr>
+<tr class="red"><td>19:30–20:00</td><td>26.27p</td></tr>
+<tr class="yellow"><td>20:00–20:30</td><td>24.70p</td></tr>
+<tr class="red"><td>20:30–21:00</td><td>25.68p</td></tr>
+<tr class="yellow"><td>21:00–21:30</td><td>24.91p</td></tr>
+<tr class="yellow"><td>21:30–22:00</td><td>24.81p</td></tr>
+<tr class="yellow"><td>22:00–22:30</td><td>23.45p</td></tr>
     </tbody>
   </table>
 </div>
 
-<p class="footer">Generated: 2026-05-20 14:31 UTC &nbsp;|&nbsp; Auto-updated every 4h &nbsp;|&nbsp; Page refreshes at :00 &amp; :30</p>
+<p class="footer">Generated: 2026-05-20 21:45 UTC &nbsp;|&nbsp; Auto-updated every 4h &nbsp;|&nbsp; Page refreshes at :00 &amp; :30</p>
 
 <script>
 // Refresh at the next exact :00 or :30 minute mark
