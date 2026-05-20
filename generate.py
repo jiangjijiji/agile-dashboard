@@ -8,7 +8,7 @@ Octopus Agile + Open-Meteo 天气页面生成器  (Kindle Paperwhite 优化版)
 用法:  python generate.py
 """
 
-import os, math, requests
+import os, math, json, requests
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 
@@ -756,6 +756,71 @@ def build_html(slots, weather_data, generated_at):
 #  入口
 # ════════════════════════════════════════════════════════════════════════════
 
+def build_summary(slots, weather_data, now_utc):
+    """Build a compact JSON summary for iOS Shortcuts notification."""
+    bst_now = now_utc + timedelta(hours=1)
+
+    # Current rate
+    current_rate = None
+    for s in slots:
+        sf = datetime.fromisoformat(s["valid_from"].replace("Z","+00:00"))
+        st = datetime.fromisoformat(s["valid_to"].replace("Z","+00:00"))
+        if sf <= now_utc < st:
+            current_rate = round(s["value_inc_vat"], 2); break
+
+    # Future slots only
+    future = [s for s in slots
+              if datetime.fromisoformat(s["valid_from"].replace("Z","+00:00")) >= now_utc]
+
+    # EV best window
+    ev_info = {}
+    windows = find_cheap_windows(future)
+    if windows:
+        bw = min(windows, key=lambda x: x["avg"])
+        miles = bw["count"] * 7.5
+        ev_info = {
+            "start": fmt_bst(bw["start"]),
+            "end":   fmt_bst(bw["end"]),
+            "avg_p": round(bw["avg"], 1),
+            "miles": round(miles)
+        }
+
+    # Washer / Dryer plan
+    wash_info = dry_info = {}
+    plan = find_appliance_plan(future)
+    if plan:
+        wash_info = {
+            "start": fmt_bst(plan["wash_start"]),
+            "end":   fmt_bst(plan["wash_end"]),
+            "avg_p": round(plan["wash_avg"], 1),
+            "dur":   fmt_dur(WASH_SLOTS)
+        }
+        dry_info = {
+            "start": fmt_bst(plan["dry_start"]),
+            "end":   fmt_bst(plan["dry_end"]),
+            "avg_p": round(plan["dry_avg"], 1),
+            "dur":   fmt_dur(DRY_SLOTS)
+        }
+
+    # Weather summary
+    cw = weather_data.get("current", {})
+    wx = {
+        "temp_c": cw.get("temperature_2m"),
+        "hum_pct": cw.get("relative_humidity_2m"),
+        "wind_mph": round(cw.get("wind_speed_10m", 0)),
+        "wind_dir": wind_label(cw.get("wind_direction_10m", 0))
+    }
+
+    return {
+        "generated_bst": bst_now.strftime("%Y-%m-%d %H:%M BST"),
+        "current_rate_p": current_rate,
+        "ev":     ev_info,
+        "washer": wash_info,
+        "dryer":  dry_info,
+        "weather": wx
+    }
+
+
 def main():
     now_utc = datetime.now(timezone.utc)
     t0 = now_utc.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -767,9 +832,14 @@ def main():
     wd = fetch_weather()
     print(f"   → {wd['current']['temperature_2m']}°C  code={wd['current']['weathercode']}")
     html = build_html(slots, wd, generated_at=now_utc)
-    out  = os.path.join(os.path.dirname(__file__), "index.html")
+    base = os.path.dirname(__file__)
+    out  = os.path.join(base, "index.html")
     with open(out, "w", encoding="utf-8") as f: f.write(html)
     print(f"📄 index.html 已生成 ({len(html):,} 字节) → {out}")
+    summary = build_summary(slots, wd, now_utc)
+    sout = os.path.join(base, "summary.json")
+    with open(sout, "w", encoding="utf-8") as f: json.dump(summary, f, ensure_ascii=False, indent=2)
+    print(f"📋 summary.json 已生成 → {sout}")
 
 if __name__ == "__main__":
     main()
