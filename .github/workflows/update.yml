@@ -41,4 +41,5 @@ jobs:
           git add index.html
           # 只有文件真正变化时才提交
           git diff --cached --quiet || git commit -m "chore: update Agile price page $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git pull --rebase origin main
           git push
