@@ -821,6 +821,39 @@ def build_summary(slots, weather_data, now_utc):
     }
 
 
+def send_slack(summary: dict):
+    """Post a summary message to Slack via Incoming Webhook."""
+    webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+    if not webhook_url:
+        print("⚠️  SLACK_WEBHOOK_URL 未设置，跳过 Slack 推送")
+        return
+
+    ev  = summary.get("ev", {})
+    ws  = summary.get("washer", {})
+    dry = summary.get("dryer", {})
+    wx  = summary.get("weather", {})
+
+    lines = [
+        f"⚡️ *Agile Rates Update* — {summary.get('generated_bst','')}",
+        f"Current rate: *{summary.get('current_rate_p','?')}p/kWh*  "
+        f"  🌡 {wx.get('temp_c','?')}°C  💨 {wx.get('wind_dir','')} {wx.get('wind_mph','?')}mph",
+        "",
+    ]
+    if ev:
+        lines.append(f"🚗 *EV charging:*  {ev['start']} → {ev['end']}  avg {ev['avg_p']}p  (~{ev.get('miles','?')} mi)")
+    if ws:
+        lines.append(f"🫧 *Washer:*  {ws['start']} → {ws['end']}  avg {ws['avg_p']}p  ({ws['dur']})")
+    if dry:
+        lines.append(f"🌀 *Dryer:*  {dry['start']} → {dry['end']}  avg {dry['avg_p']}p  ({dry['dur']})")
+
+    payload = {"text": "\n".join(lines)}
+    resp = requests.post(webhook_url, json=payload, timeout=10)
+    if resp.status_code == 200:
+        print("✅ Slack 消息已发送")
+    else:
+        print(f"❌ Slack 发送失败: {resp.status_code} {resp.text}")
+
+
 def main():
     now_utc = datetime.now(timezone.utc)
     t0 = now_utc.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -840,6 +873,7 @@ def main():
     sout = os.path.join(base, "summary.json")
     with open(sout, "w", encoding="utf-8") as f: json.dump(summary, f, ensure_ascii=False, indent=2)
     print(f"📋 summary.json 已生成 → {sout}")
+    send_slack(summary)
 
 if __name__ == "__main__":
     main()

@@ -32,6 +32,7 @@ jobs:
           OCTOPUS_MPAN:         ${{ secrets.OCTOPUS_MPAN }}
           OCTOPUS_PRODUCT_CODE: ${{ secrets.OCTOPUS_PRODUCT_CODE }}
           OCTOPUS_TARIFF_CODE:  ${{ secrets.OCTOPUS_TARIFF_CODE }}
+          SLACK_WEBHOOK_URL:    ${{ secrets.SLACK_WEBHOOK_URL }}
         run: python generate.py
 
       - name: Commit & push index.html
