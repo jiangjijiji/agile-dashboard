@@ -15,8 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ── Octopus 配置 ──────────────────────────────────────────────────────────────
-PRODUCT_CODE        = os.getenv("OCTOPUS_PRODUCT_CODE", "AGILE-24-10-01")
-TARIFF_CODE         = os.getenv("OCTOPUS_TARIFF_CODE",  "E-1R-AGILE-24-10-01-C")
+PRODUCT_CODE        = os.getenv("OCTOPUS_PRODUCT_CODE") or "AGILE-24-10-01"
+TARIFF_CODE         = os.getenv("OCTOPUS_TARIFF_CODE")  or "E-1R-AGILE-24-10-01-C"
 BASE_URL            = os.getenv("OCTOPUS_BASE_URL",      "https://api.octopus.energy/v1")
 TARIFF_DISPLAY_NAME = "Agile Octopus October 2024 v1"
 TARIFF_REGION       = "London C"
