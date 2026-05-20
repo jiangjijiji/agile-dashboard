@@ -472,13 +472,12 @@ body {
     padding: 10px 16px 20px;
 }
 
-/* ── 天气区块 (屏幕上 1/3) ────────────────────────────────────── */
+/* ── Weather section ────────────────────────────────────── */
 .wx-wrap {
     border: 2.5px solid #000;
     border-radius: 12px;
     padding: 16px 18px 14px;
     margin-bottom: 14px;
-    min-height: 18vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -498,30 +497,24 @@ body {
 .wx-temp-big { font-size: 2.4em; font-weight: 600; line-height: 1; }
 .wx-time  { font-size: 0.72em; color: #333; margin-top: 2px; font-weight: 500; }
 
-/* 4小时卡片行 */
-.wx-cards {
-    display: flex;
-    gap: 10px;
-}
+/* 3-card row */
+.wx-cards { display: flex; gap: 10px; }
 .wx-card {
     flex: 1;
     border: 2px solid #888;
     border-radius: 10px;
     text-align: center;
-    padding: 14px 4px 12px;
+    padding: 10px 4px 8px;
 }
-.wx-card.now {
-    border: 3px solid #000;
-    background: #ececec;
-}
-.wc-time { font-size: 0.78em; color: #111; margin-bottom: 5px; font-weight: 700; }
-.wc-icon { display: flex; justify-content: center; margin-bottom: 5px; }
-.wc-temp { font-size: 1.2em; font-weight: 700; margin-bottom: 6px; }
+.wx-card.now { border: 3px solid #000; background: #ececec; }
+.wc-time { font-size: 0.78em; color: #111; margin-bottom: 4px; font-weight: 700; }
+.wc-icon { display: flex; justify-content: center; margin-bottom: 4px; }
+.wc-temp { font-size: 1.2em; font-weight: 700; margin-bottom: 5px; }
 .wc-hum  { font-size: 0.76em; color: #111; margin-bottom: 3px; font-weight: 500; }
 .wc-rain { font-size: 0.76em; color: #000; margin-bottom: 3px; font-weight: 600; }
 .wc-wind { font-size: 0.76em; color: #111; line-height: 1.5; font-weight: 500; }
 
-/* ── 费率曲线区块 ─────────────────────────────────────────────── */
+/* ── Rate curve ─────────────────────────────────────────── */
 .rate-curve-wrap {
     border: 2px solid #888;
     border-radius: 10px;
@@ -535,45 +528,29 @@ body {
     margin-bottom: 6px;
 }
 
-/* ── 当前费率横条 ─────────────────────────────────────────────── */
-.cur-bar {
+/* ── Appliance boxes (EV / Washer / Dryer) ──────────────── */
+.appliance-boxes {
     display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 10px 16px;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.ap-box {
+    flex: 1;
+    border: 2.5px solid #000;
     border-radius: 10px;
-    border: 3px solid #000;
-    margin-bottom: 12px;
-}
-.cur-bar.green  { border-color: #000; }
-.cur-bar.yellow { border-color: #000; background: #f0f0f0; }
-.cur-bar.red    { border-color: #000; background: #e0e0e0; }
-.cb-icon { flex-shrink: 0; }
-.cb-rate { font-size: 2.1em; font-weight: 700; min-width: 3em; }
-.cb-slot { font-size: 0.8em; color: #222; flex: 1; line-height: 1.5; font-weight: 500; }
-.cb-label { font-size: 0.85em; font-weight: 700; text-align: right; }
-
-/* ── 信息行 (充电/洗衣/烘干) ─────────────────────────────────── */
-.info-row {
+    padding: 14px 8px 12px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
-    border-radius: 9px;
-    border: 2px solid #888;
-    margin-bottom: 10px;
-    font-size: 0.88em;
+    text-align: center;
+    gap: 6px;
 }
-.info-row.ev   { background: #f4f4f4; }
-.info-row.wash { border-style: dashed; border-color: #444; }
-.info-row.dry  { border-style: dashed; border-color: #444; background: #f4f4f4; }
-.ir-icon { flex-shrink: 0; }
-.ir-head { font-weight: 700; min-width: 4.5em; flex-shrink: 0; font-size: 1em; }
-.ir-body { flex: 1; color: #000; line-height: 1.5; font-weight: 500; }
-.badge   { font-size: 0.75em; color: #000; background: #d8d8d8;
-           border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 600; }
+.ap-box.alt { background: #f0f0f0; }
+.ap-icon  { display: flex; justify-content: center; }
+.ap-title { font-weight: 700; font-size: 0.9em; }
+.ap-detail { font-size: 0.86em; font-weight: 600; line-height: 1.55; color: #000; }
 
-/* ── 费率详情表 ──────────────────────────────────────────────── */
+/* ── Rate table ──────────────────────────────────────────── */
 .rates-wrap { margin-top: 12px; }
 .rates-title {
     font-size: 0.72em; color: #333; font-weight: 600;
@@ -591,7 +568,7 @@ tr.yellow { background: #f0f0f0; }
 tr.red    { background: #e4e4e4; color: #222; font-weight: 600; }
 td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
 
-/* ── 页脚 ────────────────────────────────────────────────────── */
+/* ── Footer ────────────────────────────────────────────── */
 .footer {
     font-size: 0.65em; color: #555; font-weight: 500; text-align: center;
     margin-top: 12px; padding-top: 6px; border-top: 1.5px solid #ccc;
@@ -616,7 +593,7 @@ def build_html(slots, weather_data, generated_at):
     cur_wdir = cw.get("wind_direction_10m", 0)
     cur_icon_svg = weather_svg(cw.get("weathercode", 0), cw.get("is_day", 1), size=44)
 
-    hours = get_next_hours(weather_data, 2)
+    hours = get_next_hours(weather_data, 3)
     cards_html = ""
     for idx, h in enumerate(hours):
         cls  = "wx-card now" if idx == 0 else "wx-card"
@@ -634,26 +611,12 @@ def build_html(slots, weather_data, generated_at):
       <div class="wc-wind">{svg_wind_arrow(h['wdir'], 28)} {wind_label(h['wdir'])} {h['wind']:.0f}mph</div>
     </div>"""
 
-    # ── 当前电价 ───────────────────────────────────────────────────────────
+    # ── 当前时段 (仅用于费率表高亮) ───────────────────────────────────────
     current_slot = None
     for s in slots:
         sf = datetime.fromisoformat(s["valid_from"].replace("Z","+00:00"))
         st = datetime.fromisoformat(s["valid_to"].replace("Z","+00:00"))
         if sf <= now_utc < st: current_slot = s; break
-
-    if current_slot:
-        p  = current_slot["value_inc_vat"]
-        rc = rate_class(p)
-        lbl = {"green":"✓ Recommended","yellow":"~ Consider","red":"✗ Avoid"}[rc]
-        cur_bar = f"""
-<div class="cur-bar {rc}">
-  <span class="cb-icon">{svg_bolt(40)}</span>
-  <span class="cb-rate">{p:.2f}p</span>
-  <span class="cb-slot">Current slot<br>{fmt_bst(current_slot['valid_from'])}–{fmt_bst(current_slot['valid_to'])} BST</span>
-  <span class="cb-label">{lbl}</span>
-</div>"""
-    else:
-        cur_bar = '<div class="cur-bar"><span class="cb-rate">—</span><span class="cb-slot">No data</span></div>'
 
     # ── 费率曲线 ───────────────────────────────────────────────────────────
     curve_svg = build_rate_svg(slots, now_utc)
@@ -665,37 +628,38 @@ def build_html(slots, weather_data, generated_at):
   {curve_svg}
 </div>"""
 
-    # ── 最优充电 ───────────────────────────────────────────────────────────
+    # ── 家电三格 (EV / Washer / Dryer) ────────────────────────────────────
     windows = find_cheap_windows(slots)
-    charge_html = ""
-    if windows:
-        bw = min(windows, key=lambda x: x["avg"])
-        miles = bw["count"] * 7.5
-        charge_html = f"""
-<div class="info-row ev">
-  <span class="ir-icon">{svg_car(36)}</span>
-  <span class="ir-head">Best charging</span>
-  <span class="ir-body">{fmt_bst(bw['start'])} → {fmt_bst(bw['end'])} BST &nbsp;·&nbsp;
-    avg {bw['avg']:.1f}p &nbsp;min {bw['min']:.2f}p &nbsp;·&nbsp; ≈{miles:.0f} mi</span>
-</div>"""
+    plan    = find_appliance_plan(slots)
 
-    # ── 洗衣+烘干排班 ──────────────────────────────────────────────────────
-    plan = find_appliance_plan(slots)
-    appliance_html = ""
+    ev_box = ""
+    if windows:
+        bw    = min(windows, key=lambda x: x["avg"])
+        miles = bw["count"] * 7.5
+        ev_box = f"""
+  <div class="ap-box">
+    <span class="ap-icon">{svg_car(40)}</span>
+    <div class="ap-title">EV</div>
+    <div class="ap-detail">{fmt_bst(bw['start'])} → {fmt_bst(bw['end'])}<br>avg {bw['avg']:.1f}p &nbsp;·&nbsp; ≈{miles:.0f} mi</div>
+  </div>"""
+
+    wash_box = dry_box = ""
     if plan:
-        appliance_html = f"""
-<div class="info-row wash">
-  <span class="ir-icon">{svg_washer(36)}</span>
-  <span class="ir-head">Washer</span>
-  <span class="ir-body">{fmt_bst(plan['wash_start'])} → {fmt_bst(plan['wash_end'])} BST
-    &nbsp;·&nbsp; avg {plan['wash_avg']:.1f}p &nbsp;·&nbsp; {fmt_dur(WASH_SLOTS)}</span>
-</div>
-<div class="info-row dry">
-  <span class="ir-icon">{svg_dryer(36)}</span>
-  <span class="ir-head">Dryer</span>
-  <span class="ir-body">{fmt_bst(plan['dry_start'])} → {fmt_bst(plan['dry_end'])} BST
-    &nbsp;·&nbsp; avg {plan['dry_avg']:.1f}p &nbsp;·&nbsp; {fmt_dur(DRY_SLOTS)}</span>
-</div>"""
+        wash_box = f"""
+  <div class="ap-box">
+    <span class="ap-icon">{svg_washer(40)}</span>
+    <div class="ap-title">Washer</div>
+    <div class="ap-detail">{fmt_bst(plan['wash_start'])} → {fmt_bst(plan['wash_end'])}<br>avg {plan['wash_avg']:.1f}p &nbsp;·&nbsp; {fmt_dur(WASH_SLOTS)}</div>
+  </div>"""
+        dry_box = f"""
+  <div class="ap-box alt">
+    <span class="ap-icon">{svg_dryer(40)}</span>
+    <div class="ap-title">Dryer</div>
+    <div class="ap-detail">{fmt_bst(plan['dry_start'])} → {fmt_bst(plan['dry_end'])}<br>avg {plan['dry_avg']:.1f}p &nbsp;·&nbsp; {fmt_dur(DRY_SLOTS)}</div>
+  </div>"""
+
+    appliance_boxes_html = (f'<div class="appliance-boxes">{ev_box}{wash_box}{dry_box}\n</div>'
+                            if (ev_box or wash_box) else "")
 
     # ── 费率表：从当前时段开始显示 ────────────────────────────────────────────
     cur_idx = 0
@@ -746,13 +710,11 @@ def build_html(slots, weather_data, generated_at):
   <div class="wx-cards">{cards_html}</div>
 </div>
 
-<!-- Rate curve + current rate -->
+<!-- Rate curve -->
 {curve_html}
-{cur_bar}
 
-<!-- Charging / Washer / Dryer -->
-{charge_html}
-{appliance_html}
+<!-- Appliance boxes: EV / Washer / Dryer -->
+{appliance_boxes_html}
 
 <!-- Rate table -->
 <div class="rates-wrap">

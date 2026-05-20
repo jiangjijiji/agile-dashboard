@@ -18,13 +18,12 @@ body {
     padding: 10px 16px 20px;
 }
 
-/* ── 天气区块 (屏幕上 1/3) ────────────────────────────────────── */
+/* ── Weather section ────────────────────────────────────── */
 .wx-wrap {
     border: 2.5px solid #000;
     border-radius: 12px;
     padding: 16px 18px 14px;
     margin-bottom: 14px;
-    min-height: 18vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -44,30 +43,24 @@ body {
 .wx-temp-big { font-size: 2.4em; font-weight: 600; line-height: 1; }
 .wx-time  { font-size: 0.72em; color: #333; margin-top: 2px; font-weight: 500; }
 
-/* 4小时卡片行 */
-.wx-cards {
-    display: flex;
-    gap: 10px;
-}
+/* 3-card row */
+.wx-cards { display: flex; gap: 10px; }
 .wx-card {
     flex: 1;
     border: 2px solid #888;
     border-radius: 10px;
     text-align: center;
-    padding: 14px 4px 12px;
+    padding: 10px 4px 8px;
 }
-.wx-card.now {
-    border: 3px solid #000;
-    background: #ececec;
-}
-.wc-time { font-size: 0.78em; color: #111; margin-bottom: 5px; font-weight: 700; }
-.wc-icon { display: flex; justify-content: center; margin-bottom: 5px; }
-.wc-temp { font-size: 1.2em; font-weight: 700; margin-bottom: 6px; }
+.wx-card.now { border: 3px solid #000; background: #ececec; }
+.wc-time { font-size: 0.78em; color: #111; margin-bottom: 4px; font-weight: 700; }
+.wc-icon { display: flex; justify-content: center; margin-bottom: 4px; }
+.wc-temp { font-size: 1.2em; font-weight: 700; margin-bottom: 5px; }
 .wc-hum  { font-size: 0.76em; color: #111; margin-bottom: 3px; font-weight: 500; }
 .wc-rain { font-size: 0.76em; color: #000; margin-bottom: 3px; font-weight: 600; }
 .wc-wind { font-size: 0.76em; color: #111; line-height: 1.5; font-weight: 500; }
 
-/* ── 费率曲线区块 ─────────────────────────────────────────────── */
+/* ── Rate curve ─────────────────────────────────────────── */
 .rate-curve-wrap {
     border: 2px solid #888;
     border-radius: 10px;
@@ -81,45 +74,29 @@ body {
     margin-bottom: 6px;
 }
 
-/* ── 当前费率横条 ─────────────────────────────────────────────── */
-.cur-bar {
+/* ── Appliance boxes (EV / Washer / Dryer) ──────────────── */
+.appliance-boxes {
     display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 10px 16px;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.ap-box {
+    flex: 1;
+    border: 2.5px solid #000;
     border-radius: 10px;
-    border: 3px solid #000;
-    margin-bottom: 12px;
-}
-.cur-bar.green  { border-color: #000; }
-.cur-bar.yellow { border-color: #000; background: #f0f0f0; }
-.cur-bar.red    { border-color: #000; background: #e0e0e0; }
-.cb-icon { flex-shrink: 0; }
-.cb-rate { font-size: 2.1em; font-weight: 700; min-width: 3em; }
-.cb-slot { font-size: 0.8em; color: #222; flex: 1; line-height: 1.5; font-weight: 500; }
-.cb-label { font-size: 0.85em; font-weight: 700; text-align: right; }
-
-/* ── 信息行 (充电/洗衣/烘干) ─────────────────────────────────── */
-.info-row {
+    padding: 14px 8px 12px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
-    border-radius: 9px;
-    border: 2px solid #888;
-    margin-bottom: 10px;
-    font-size: 0.88em;
+    text-align: center;
+    gap: 6px;
 }
-.info-row.ev   { background: #f4f4f4; }
-.info-row.wash { border-style: dashed; border-color: #444; }
-.info-row.dry  { border-style: dashed; border-color: #444; background: #f4f4f4; }
-.ir-icon { flex-shrink: 0; }
-.ir-head { font-weight: 700; min-width: 4.5em; flex-shrink: 0; font-size: 1em; }
-.ir-body { flex: 1; color: #000; line-height: 1.5; font-weight: 500; }
-.badge   { font-size: 0.75em; color: #000; background: #d8d8d8;
-           border-radius: 4px; padding: 1px 6px; margin-left: 6px; font-weight: 600; }
+.ap-box.alt { background: #f0f0f0; }
+.ap-icon  { display: flex; justify-content: center; }
+.ap-title { font-weight: 700; font-size: 0.9em; }
+.ap-detail { font-size: 0.86em; font-weight: 600; line-height: 1.55; color: #000; }
 
-/* ── 费率详情表 ──────────────────────────────────────────────── */
+/* ── Rate table ──────────────────────────────────────────── */
 .rates-wrap { margin-top: 12px; }
 .rates-title {
     font-size: 0.72em; color: #333; font-weight: 600;
@@ -137,7 +114,7 @@ tr.yellow { background: #f0f0f0; }
 tr.red    { background: #e4e4e4; color: #222; font-weight: 600; }
 td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
 
-/* ── 页脚 ────────────────────────────────────────────────────── */
+/* ── Footer ────────────────────────────────────────────── */
 .footer {
     font-size: 0.65em; color: #555; font-weight: 500; text-align: center;
     margin-top: 12px; padding-top: 6px; border-top: 1.5px solid #ccc;
@@ -151,11 +128,11 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
   <div class="wx-top">
     <div class="wx-left">
       <span class="wx-city"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Kingston upon Thames</span>
-      <span class="wx-meta"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 64% &nbsp;&nbsp; <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="6.8" y1="13.7" x2="18.2" y2="10.0"/><line x1="15.6" y1="13.3" x2="18.2" y2="10.0"/><line x1="14.1" y1="8.9" x2="18.2" y2="10.0"/></svg> W→ 14 mph</span>
+      <span class="wx-meta"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 66% &nbsp;&nbsp; <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="6.8" y1="13.7" x2="18.2" y2="10.0"/><line x1="15.6" y1="13.3" x2="18.2" y2="10.0"/><line x1="14.1" y1="8.9" x2="18.2" y2="10.0"/></svg> W→ 13 mph</span>
     </div>
     <div class="wx-right">
       <div class="wx-temp-big">18° <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 21H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M20 16H6" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
-      <div class="wx-time">15:09 BST  ·  Wed 20 May 2026</div>
+      <div class="wx-time">15:16 BST  ·  Wed 20 May 2026</div>
     </div>
   </div>
   <div class="wx-cards">
@@ -174,10 +151,18 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
       <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 72%</div>
       <div class="wc-rain"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M17 12H9a5 5 0 0 1 8-4A4 4 0 1 1 17 12z"/><line x1="8" y1="15" x2="7" y2="19"/><line x1="12" y1="15" x2="11" y2="19"/><line x1="16" y1="15" x2="15" y2="19"/></svg> 10%</div>
       <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="6.8" y1="13.9" x2="18.1" y2="9.8"/><line x1="15.6" y1="13.1" x2="18.1" y2="9.8"/><line x1="14.0" y1="8.8" x2="18.1" y2="9.8"/></svg> W→ 12mph</div>
+    </div>
+    <div class="wx-card">
+      <div class="wc-time">17:00</div>
+      <div class="wc-icon"><svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 21H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M20 16H6" stroke-dasharray="2 2" stroke-width="1"/></svg></div>
+      <div class="wc-temp">18°C</div>
+      <div class="wc-hum"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:2px"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 69%</div>
+      
+      <div class="wc-wind"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.8" stroke-linecap="round" style="vertical-align:middle;margin-right:2px"><line x1="7.1" y1="14.4" x2="17.8" y2="9.2"/><line x1="15.7" y1="12.8" x2="17.8" y2="9.2"/><line x1="13.7" y1="8.6" x2="17.8" y2="9.2"/></svg> SW↗ 12mph</div>
     </div></div>
 </div>
 
-<!-- Rate curve + current rate -->
+<!-- Rate curve -->
 
 <div class="rate-curve-wrap">
   <div class="rate-curve-title">Today's 24-hour rate curve</div>
@@ -201,33 +186,23 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
 </svg>
 </div>
 
-<div class="cur-bar green">
-  <span class="cb-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
-  <span class="cb-rate">10.98p</span>
-  <span class="cb-slot">Current slot<br>15:00–15:30 BST</span>
-  <span class="cb-label">✓ Recommended</span>
-</div>
-
-<!-- Charging / Washer / Dryer -->
-
-<div class="info-row ev">
-  <span class="ir-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15h20v4H2z"/><path d="M5 15l3-6h8l3 6"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/><line x1="4" y1="17" x2="2" y2="17"/><line x1="20" y1="17" x2="22" y2="17"/></svg></span>
-  <span class="ir-head">Best charging</span>
-  <span class="ir-body">09:00 → 16:00 BST &nbsp;·&nbsp;
-    avg 13.5p &nbsp;min 10.98p &nbsp;·&nbsp; ≈105 mi</span>
-</div>
-
-<div class="info-row wash">
-  <span class="ir-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="2.5"/><circle cx="6.5" cy="5.5" r="0.8" fill="black"/><circle cx="9.5" cy="5.5" r="0.8" fill="black"/><line x1="13" y1="5.5" x2="17" y2="5.5"/></svg></span>
-  <span class="ir-head">Washer</span>
-  <span class="ir-body">09:00 → 12:30 BST
-    &nbsp;·&nbsp; avg 15.5p &nbsp;·&nbsp; 3.5h</span>
-</div>
-<div class="info-row dry">
-  <span class="ir-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M9.5 11 Q12 9 14.5 11" stroke-width="1.5"/><path d="M9.5 13 Q12 11 14.5 13" stroke-width="1.5"/><path d="M9.5 15 Q12 13 14.5 15" stroke-width="1.5"/><circle cx="6.5" cy="5.5" r="0.8" fill="black"/><line x1="11" y1="5.5" x2="17" y2="5.5"/></svg></span>
-  <span class="ir-head">Dryer</span>
-  <span class="ir-body">12:30 → 16:00 BST
-    &nbsp;·&nbsp; avg 11.6p &nbsp;·&nbsp; 3.5h</span>
+<!-- Appliance boxes: EV / Washer / Dryer -->
+<div class="appliance-boxes">
+  <div class="ap-box">
+    <span class="ap-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15h20v4H2z"/><path d="M5 15l3-6h8l3 6"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/><line x1="4" y1="17" x2="2" y2="17"/><line x1="20" y1="17" x2="22" y2="17"/></svg></span>
+    <div class="ap-title">EV</div>
+    <div class="ap-detail">09:00 → 16:00<br>avg 13.5p &nbsp;·&nbsp; ≈105 mi</div>
+  </div>
+  <div class="ap-box">
+    <span class="ap-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="2.5"/><circle cx="6.5" cy="5.5" r="0.8" fill="black"/><circle cx="9.5" cy="5.5" r="0.8" fill="black"/><line x1="13" y1="5.5" x2="17" y2="5.5"/></svg></span>
+    <div class="ap-title">Washer</div>
+    <div class="ap-detail">09:00 → 12:30<br>avg 15.5p &nbsp;·&nbsp; 3.5h</div>
+  </div>
+  <div class="ap-box alt">
+    <span class="ap-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M9.5 11 Q12 9 14.5 11" stroke-width="1.5"/><path d="M9.5 13 Q12 11 14.5 13" stroke-width="1.5"/><path d="M9.5 15 Q12 13 14.5 15" stroke-width="1.5"/><circle cx="6.5" cy="5.5" r="0.8" fill="black"/><line x1="11" y1="5.5" x2="17" y2="5.5"/></svg></span>
+    <div class="ap-title">Dryer</div>
+    <div class="ap-detail">12:30 → 16:00<br>avg 11.6p &nbsp;·&nbsp; 3.5h</div>
+  </div>
 </div>
 
 <!-- Rate table -->
@@ -292,7 +267,7 @@ td .tag   { font-size: 0.8em; margin-right: 5px; font-weight: 700; }
   </table>
 </div>
 
-<p class="footer">Generated: 2026-05-20 14:09 UTC &nbsp;|&nbsp; Auto-updated every 4h &nbsp;|&nbsp; Page refreshes at :00 &amp; :30</p>
+<p class="footer">Generated: 2026-05-20 14:16 UTC &nbsp;|&nbsp; Auto-updated every 4h &nbsp;|&nbsp; Page refreshes at :00 &amp; :30</p>
 
 <script>
 // Refresh at the next exact :00 or :30 minute mark
