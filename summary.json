@@ -1,6 +1,6 @@
 {
-  "generated_bst": "2026-07-17 07:07 BST",
-  "current_rate_p": 23.79,
+  "generated_bst": "2026-07-17 10:44 BST",
+  "current_rate_p": 20.08,
   "ev": {
     "start": "11:00",
     "end": "16:00",
@@ -8,21 +8,21 @@
     "miles": 75
   },
   "washer": {
-    "start": "09:00",
-    "end": "12:30",
-    "avg_p": 19.3,
+    "start": "11:00",
+    "end": "14:30",
+    "avg_p": 17.7,
     "dur": "3.5h"
   },
   "dryer": {
-    "start": "12:30",
-    "end": "16:00",
-    "avg_p": 17.6,
+    "start": "14:30",
+    "end": "18:00",
+    "avg_p": 26.7,
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 17.3,
-    "hum_pct": 75,
-    "wind_mph": 5,
-    "wind_dir": "NE"
+    "temp_c": 21.6,
+    "hum_pct": 52,
+    "wind_mph": 4,
+    "wind_dir": "N"
   }
 }
