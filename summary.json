@@ -1,6 +1,6 @@
 {
-  "generated_bst": "2026-07-21 18:05 BST",
-  "current_rate_p": 36.82,
+  "generated_bst": "2026-07-21 21:56 BST",
+  "current_rate_p": 25.66,
   "ev": {},
   "washer": {
     "start": "09:00",
@@ -15,9 +15,9 @@
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 24.4,
-    "hum_pct": 42,
-    "wind_mph": 6,
-    "wind_dir": "NE"
+    "temp_c": 21.4,
+    "hum_pct": 54,
+    "wind_mph": 5,
+    "wind_dir": "SE"
   }
 }
