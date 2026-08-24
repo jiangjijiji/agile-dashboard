@@ -1,6 +1,6 @@
 {
-  "generated_bst": "2026-08-24 17:21 BST",
-  "current_rate_p": 39.52,
+  "generated_bst": "2026-08-24 21:16 BST",
+  "current_rate_p": 29.44,
   "ev": {
     "start": "10:30",
     "end": "14:00",
@@ -20,9 +20,9 @@
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 21.4,
-    "hum_pct": 42,
-    "wind_mph": 15,
-    "wind_dir": "E"
+    "temp_c": 18.5,
+    "hum_pct": 56,
+    "wind_mph": 11,
+    "wind_dir": "NE"
   }
 }
