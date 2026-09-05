@@ -1,11 +1,11 @@
 {
-  "generated_bst": "2026-09-05 02:45 BST",
-  "current_rate_p": 6.58,
+  "generated_bst": "2026-09-05 08:53 BST",
+  "current_rate_p": 3.84,
   "ev": {
-    "start": "03:00",
+    "start": "09:00",
     "end": "16:30",
-    "avg_p": 1.6,
-    "miles": 202
+    "avg_p": -0.8,
+    "miles": 112
   },
   "washer": {
     "start": "09:00",
@@ -20,9 +20,9 @@
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 13.8,
-    "hum_pct": 84,
-    "wind_mph": 7,
+    "temp_c": 14.9,
+    "hum_pct": 75,
+    "wind_mph": 8,
     "wind_dir": "W"
   }
 }
