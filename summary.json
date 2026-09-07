@@ -1,6 +1,6 @@
 {
-  "generated_bst": "2026-09-06 22:48 BST",
-  "current_rate_p": 27.29,
+  "generated_bst": "2026-09-07 02:37 BST",
+  "current_rate_p": 25.93,
   "ev": {
     "start": "11:00",
     "end": "16:00",
@@ -20,9 +20,9 @@
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 18.8,
-    "hum_pct": 72,
-    "wind_mph": 3,
-    "wind_dir": "S"
+    "temp_c": 17.9,
+    "hum_pct": 78,
+    "wind_mph": 4,
+    "wind_dir": "SW"
   }
 }
