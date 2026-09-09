@@ -1,11 +1,11 @@
 {
-  "generated_bst": "2026-09-08 23:06 BST",
-  "current_rate_p": 22.95,
+  "generated_bst": "2026-09-09 02:54 BST",
+  "current_rate_p": 22.74,
   "ev": {},
   "washer": {
-    "start": "23:30",
-    "end": "03:00",
-    "avg_p": 22.6,
+    "start": "03:00",
+    "end": "06:30",
+    "avg_p": 24.3,
     "dur": "3.5h"
   },
   "dryer": {
@@ -15,9 +15,9 @@
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 14.8,
-    "hum_pct": 70,
-    "wind_mph": 7,
+    "temp_c": 13.2,
+    "hum_pct": 79,
+    "wind_mph": 8,
     "wind_dir": "W"
   }
 }
