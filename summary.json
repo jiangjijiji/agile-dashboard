@@ -1,6 +1,6 @@
 {
-  "generated_bst": "2026-10-03 00:22 BST",
-  "current_rate_p": 26.73,
+  "generated_bst": "2026-10-03 03:40 BST",
+  "current_rate_p": 25.7,
   "ev": {},
   "washer": {
     "start": "09:00",
@@ -15,9 +15,9 @@
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 13.9,
-    "hum_pct": 84,
-    "wind_mph": 5,
+    "temp_c": 11.9,
+    "hum_pct": 93,
+    "wind_mph": 4,
     "wind_dir": "SW"
   }
 }
