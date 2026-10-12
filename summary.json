@@ -1,23 +1,28 @@
 {
-  "generated_bst": "2026-10-12 12:24 BST",
-  "current_rate_p": 25.08,
-  "ev": {},
-  "washer": {
-    "start": "12:30",
+  "generated_bst": "2026-10-12 21:31 BST",
+  "current_rate_p": 27.86,
+  "ev": {
+    "start": "10:30",
     "end": "16:00",
-    "avg_p": 26.3,
+    "avg_p": 13.4,
+    "miles": 82
+  },
+  "washer": {
+    "start": "09:00",
+    "end": "12:30",
+    "avg_p": 18.2,
     "dur": "3.5h"
   },
   "dryer": {
     "start": "12:30",
     "end": "16:00",
-    "avg_p": 26.3,
+    "avg_p": 12.9,
     "dur": "3.5h"
   },
   "weather": {
-    "temp_c": 14.7,
-    "hum_pct": 87,
-    "wind_mph": 13,
-    "wind_dir": "S"
+    "temp_c": 16.9,
+    "hum_pct": 88,
+    "wind_mph": 8,
+    "wind_dir": "SW"
   }
 }
